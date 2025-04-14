@@ -32,4 +32,3 @@ class Env:
                   True otherwise.
         """
         return str(self._value).strip().lower() not in {"n", "no", "none", "false", "0"}
-
