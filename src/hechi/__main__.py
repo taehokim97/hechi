@@ -1,26 +1,36 @@
 from __future__ import annotations
 
-import os
 import argparse
-import logging
 import sys
 
 import hechi
+from hechi.commands import COMMANDS
+
+
+logger = hechi.get_logger()
+tracer = hechi.get_tracer()
 
 
 def main():
-    logger = hechi.get_logger()
-
     parser = argparse.ArgumentParser(
         "hechi",
         description="Protect your Python code easily with Hechi!",
     )
-    command_parser = parser.add_subparsers(dest="command", required=True)
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    for command_cls in COMMANDS:
+        command = command_cls()
+        command.configure_parser(subparsers)
 
     try:
         args = parser.parse_args()
-    except argparse.ArgumentError as error:
-        logger.error("Error: failed-to-parse-argument")
+        args.handler(vars(**args))
+    except SystemExit:
+        logger.error("Error: failed-to-parse-arguments")
+        sys.exit(1)
+    except Exception as e:
+        logger.error("Error: unexpected-exception")
+        tracer.error(e)
         sys.exit(1)
 
 

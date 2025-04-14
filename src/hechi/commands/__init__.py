@@ -1,7 +1,10 @@
-import importlib
-import pkgutil
+from __future__ import annotations
+from typing import List, Type
+
+from .abc import AbstractCommand
+from .license import LicenseCommand
 
 
-for _, module_name, _ in pkgutil.iter_modules(__path__):
-    if module_name.startswith("command"):
-        importlib.import_module(f"{__name__}.{module_name}")
+COMMANDS: List[Type[AbstractCommand]] = [
+    LicenseCommand,
+]
