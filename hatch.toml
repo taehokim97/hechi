@@ -1,0 +1,22 @@
+[build.targets.sdist]
+include = ["/src"]
+
+[build.targets.wheel]
+packages = ["src/hechi"]
+
+[envs.default]
+python = "3.8"
+
+[envs.dev]
+python = "3.8"
+dependencies = [
+    "pylint",
+    "pytest",
+    "ruff",
+]
+
+[metadata]
+allow-direct-references = true
+
+[version]
+path = "src/hechi/__about__.py"
