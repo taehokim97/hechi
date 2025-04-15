@@ -1,7 +1,11 @@
+from __future__ import annotations
+
+from typing import List, Literal, Optional
+
 from .abc import AbstractCommand
 
 
-class EncryptCommand(AbstractCommand):
+class EncryptDirCommand(AbstractCommand):
     name = "encrypt"
     help = "Encrypt a .py file or all .py files inside a directory (copying all contents)."
     descriptions = """
@@ -60,5 +64,15 @@ By default, common directories like `__pycache__` or hidden folders (starting wi
             "--runtime-arch", choices=["amd64"], default="amd64", help="Target system architecture (default: amd64)."
         )
 
-    def main(self):
+    def main(
+        self,
+        path: str,
+        dest: str,
+        include: List[str],
+        exclude: List[str],
+        no_default_exclude: bool,
+        runtime_py_version: Optional[Literal["38", "39", "310", "311", "312"]],
+        runtime_os: Optional[Literal["windows", "linux", "macos"]],
+        runtime_arch: Literal["amd64"],
+    ):
         pass

@@ -39,3 +39,23 @@ class AbstractCommand(ABC):
             **kwargs: Keyword arguments passed to the command.
         """
         pass
+
+
+class BaseEncryptCommand(AbstractCommand):
+    def configure_runtime_option(self, parser: ArgumentParser):
+        parser.add_argument(
+            "--runtime-py-version",
+            choices=["38", "39", "310", "311", "312"],
+            default=None,
+            help="Target Python runtime version (e.g. 38 for Python 3.8, 312 for Python 3.12). "
+            "If not set, the current Python version is used.",
+        )
+        parser.add_argument(
+            "--runtime-os",
+            choices=["windows", "linux", "macos"],
+            default=None,
+            help="Target operating system. If not set, the current OS is used.",
+        )
+        parser.add_argument(
+            "--runtime-arch", choices=["amd64"], default="amd64", help="Target system architecture (default: amd64)."
+        )
