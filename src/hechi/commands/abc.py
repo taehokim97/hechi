@@ -6,7 +6,7 @@ class AbstractCommand(ABC):
     """
     Abstract base class for defining CLI commands.
 
-    Each command must specify a `name` attribute, implement `configure_parser` to define 
+    Each command must specify a `name` attribute, implement `configure_parser` to define
     its arguments, and implement `main` to handle execution logic.
 
     Attributes:
@@ -16,7 +16,7 @@ class AbstractCommand(ABC):
         configure_parser(subparsers): Configure the command-specific argument parser.
         main(*args, **kwargs): Execute the command logic when invoked.
     """
-    
+
     name: str
 
     @abstractmethod
